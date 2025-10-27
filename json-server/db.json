@@ -1,0 +1,53 @@
+{
+  "plaza": [
+    {
+      "id": "1",
+      "estado": false
+    },
+    {
+      "id": "2",
+      "estado": false
+    },
+    {
+      "id": "3",
+      "estado": false
+    },
+    {
+      "id": "4",
+      "estado": true
+    },
+    {
+      "id": "5",
+      "estado": false
+    },
+    {
+      "id": "6",
+      "estado": false
+    },
+    {
+      "id": "7",
+      "estado": false
+    },
+    {
+      "id": "8",
+      "estado": false
+    },
+    {
+      "id": "9",
+      "estado": false
+    },
+    {
+      "id": "10",
+      "estado": false
+    }
+  ],
+  "tiempo": [
+    {
+      "id": "86f4",
+      "id_plaza": 2,
+      "entrada": "2025-10-27T09:40:24.406Z",
+      "salida": "2025-10-27T09:40:31.524Z",
+      "duracion": 0
+    }
+  ]
+}
