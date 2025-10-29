@@ -38,10 +38,9 @@ export class TiempoService {
         const tiempo = tiempos[0];
         const salida = new Date();
         const duracionSegundos = (salida.getTime() - new Date(tiempo.entrada).getTime()) / 1000;
-        const duracionMinutos = Math.round(duracionSegundos / 60);
         const { data } = await axios.patch(`${TIEMPO_API}/${tiempo.id}`, {
             salida: salida.toISOString(),
-            duracion: duracionMinutos
+            duracion: duracionSegundos
         });
 
         return data;
