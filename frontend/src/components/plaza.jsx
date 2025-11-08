@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-export default function Plaza({ id, estado, auto, position }) {
+function Plaza({ id, estado, auto, position }) {
     const getImageClass = () => {
         if (position === 'right') return 'scale-x-[-1]';
         if (position === 'bottom') return 'rotate-90';
@@ -29,3 +29,14 @@ export default function Plaza({ id, estado, auto, position }) {
         </div>
     );
 }
+
+function areEqual(prevProps, nextProps) {
+   return (
+     prevProps.id === nextProps.id &&
+     prevProps.estado === nextProps.estado &&
+     prevProps.auto === nextProps.auto &&
+     prevProps.position === nextProps.position
+   );
+ }
+
+export default memo(Plaza, areEqual);
