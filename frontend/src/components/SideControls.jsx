@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 function SideControls({ p, position, timings, now, handleEntrada, handleSalida }) {
   const lastSeconds = timings[p.id]?.lastSeconds ?? null;
   const start = timings[p.id]?.start ?? null;
 
-  const formatElapsed = (ms) => {
+  const formatElapsed = ms => {
     const totalSec = Math.max(0, Math.floor(ms / 1000));
     const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
     const ss = String(totalSec % 60).padStart(2, '0');
@@ -12,29 +12,38 @@ function SideControls({ p, position, timings, now, handleEntrada, handleSalida }
   };
 
   const baseBox = 'flex flex-col justify-center gap-1 text-center';
-  const buttonBase = 'border-2 border-black rounded text-xs lg:text-sm font-medium text-white px-2 lg:px-3 py-1 lg:py-1.5';
+  const buttonBase =
+    'border-2 border-black rounded text-xs lg:text-sm font-medium text-white px-2 lg:px-3 py-1 lg:py-1.5';
 
-  const minutesBadge = lastSeconds != null && !p.estado ? (
-    <div className="mt-1 bg-gray-900 text-white px-2 py-0.5 rounded text-[10px] lg:text-xs border-2 border-black">
-      {formatElapsed(lastSeconds * 1000) + ' min'}
-    </div>
-  ) : null;
+  const minutesBadge =
+    lastSeconds != null && !p.estado ? (
+      <div className="mt-1 bg-gray-900 text-white px-2 py-0.5 rounded text-[10px] lg:text-xs border-2 border-black">
+        {formatElapsed(lastSeconds * 1000) + ' min'}
+      </div>
+    ) : null;
 
-  const elapsedBadge = p.estado && start ? (
-    <div className="mt-1 bg-black/80 text-white px-2 py-0.5 rounded text-[10px] lg:text-xs border-2 border-black">
-      {formatElapsed(now - start)}
-    </div>
-  ) : null;
+  const elapsedBadge =
+    p.estado && start ? (
+      <div className="mt-1 bg-black/80 text-white px-2 py-0.5 rounded text-[10px] lg:text-xs border-2 border-black">
+        {formatElapsed(now - start)}
+      </div>
+    ) : null;
 
   if (position === 'left') {
     return (
       <div className={`w-32 lg:w-36 h-20 lg:h-24 ${baseBox} px-3 pr-1`}>
         {!p.estado ? (
-          <button onClick={() => handleEntrada(p.id)} className={`${buttonBase} bg-blue-600 hover:bg-blue-700`}>
+          <button
+            onClick={() => handleEntrada(p.id)}
+            className={`${buttonBase} bg-blue-600 hover:bg-blue-700`}
+          >
             Entrada
           </button>
         ) : (
-          <button onClick={() => handleSalida(p.id)} className={`${buttonBase} bg-yellow-500 hover:bg-orange-600`}>
+          <button
+            onClick={() => handleSalida(p.id)}
+            className={`${buttonBase} bg-yellow-500 hover:bg-orange-600`}
+          >
             Salida
           </button>
         )}
@@ -45,11 +54,17 @@ function SideControls({ p, position, timings, now, handleEntrada, handleSalida }
     return (
       <div className={`lg:w-36 h-20 lg:h-24 ${baseBox} px-3 pl-1`}>
         {!p.estado ? (
-          <button onClick={() => handleEntrada(p.id)} className={`${buttonBase} bg-blue-600 hover:bg-blue-700`}>
+          <button
+            onClick={() => handleEntrada(p.id)}
+            className={`${buttonBase} bg-blue-600 hover:bg-blue-700`}
+          >
             Entrada
           </button>
         ) : (
-          <button onClick={() => handleSalida(p.id)} className={`${buttonBase} bg-yellow-500 hover:bg-orange-600`}>
+          <button
+            onClick={() => handleSalida(p.id)}
+            className={`${buttonBase} bg-yellow-500 hover:bg-orange-600`}
+          >
             Salida
           </button>
         )}
@@ -61,11 +76,17 @@ function SideControls({ p, position, timings, now, handleEntrada, handleSalida }
   return (
     <div className={`w-20 lg:w-24 h-10 lg:h-12 ${baseBox}  pt-3.5`}>
       {!p.estado ? (
-        <button onClick={() => handleEntrada(p.id)} className={`${buttonBase} bg-blue-600 hover:bg-blue-700`}>
+        <button
+          onClick={() => handleEntrada(p.id)}
+          className={`${buttonBase} bg-blue-600 hover:bg-blue-700`}
+        >
           Entrada
         </button>
       ) : (
-        <button onClick={() => handleSalida(p.id)} className={`${buttonBase} bg-yellow-500 hover:bg-orange-600`}>
+        <button
+          onClick={() => handleSalida(p.id)}
+          className={`${buttonBase} bg-yellow-500 hover:bg-orange-600`}
+        >
           Salida
         </button>
       )}
