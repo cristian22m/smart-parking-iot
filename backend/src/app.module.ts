@@ -1,12 +1,10 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PlazaModule } from './plaza/plaza.module';
-import { TiempoModule } from './tiempo/tiempo.module';
+import { SensorModule } from './sensor/sensor.module';
 
 @Module({
-  imports: [PlazaModule, TiempoModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [SensorModule],
+  controllers: [],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule {}
