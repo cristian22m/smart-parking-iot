@@ -86,11 +86,3 @@ export const SENSOR_MAPPING = {
 -   **Formato:** `{"sensor": X, "libre": true/false}`
 
 <!-- end list -->
-
-```
-
-```
-
-```
-
-```
