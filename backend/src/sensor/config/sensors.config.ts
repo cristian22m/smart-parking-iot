@@ -2,17 +2,26 @@
  * Interfaz de configuración para cada sensor.
  */
 export interface SensorConfig {
-  targetPlaza: number; // ID de la plaza visual en el frontend
-  activo: boolean; // true = procesar señal, false = ignorar
+  targetPlaza: number;
+  activo: boolean;
 }
 
 /**
- * MAPEO CENTRAL: Sensor Físico (Key) -> Plaza Lógica (Value).
- * Ubicación: src/sensor/config/sensors.config.ts
+ * CONFIGURACIÓN DEL PUERTO SERIE
+ * - port: Puede ser 'AUTO' (para detectar Arduino solo) o un puerto fijo (ej: 'COM3', '/dev/ttyUSB0').
+ * - baudRate: Velocidad de comunicación (9600 es el estándar de Arduino).
+ */
+export const SERIAL_CONFIG = {
+  port: 'AUTO', // Cambiar a 'COMX' si quieres forzar uno específico
+  baudRate: 9600,
+};
+
+/**
+ * MAPEO CENTRAL: Sensor Físico -> Plaza Lógica
  */
 export const SENSOR_MAPPING: Record<number, SensorConfig> = {
   1: { targetPlaza: 1, activo: true },
-  2: { targetPlaza: 2, activo: false },
+  2: { targetPlaza: 2, activo: false }, // Ejemplo desactivado
   3: { targetPlaza: 3, activo: false },
   4: { targetPlaza: 4, activo: false },
   5: { targetPlaza: 5, activo: false },
