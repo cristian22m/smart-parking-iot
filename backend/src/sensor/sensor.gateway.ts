@@ -30,7 +30,7 @@ export class SensorGateway
     });
   }
 
-  afterInit(server: Server) {
+  afterInit() {
     this.logger.log(
       '>>> SensorGateway: Servidor WebSocket Inicializado (afterInit)',
     );
