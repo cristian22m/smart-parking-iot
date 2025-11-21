@@ -20,14 +20,14 @@ export const SERIAL_CONFIG = {
  * MAPEO CENTRAL: Sensor Físico -> Plaza Lógica
  */
 export const SENSOR_MAPPING: Record<number, SensorConfig> = {
-  1: { targetPlaza: 1, activo: true },
-  2: { targetPlaza: 2, activo: false }, // Ejemplo desactivado
-  3: { targetPlaza: 3, activo: false },
-  4: { targetPlaza: 4, activo: false },
-  5: { targetPlaza: 5, activo: false },
-  6: { targetPlaza: 6, activo: false },
-  7: { targetPlaza: 7, activo: false },
-  8: { targetPlaza: 8, activo: false },
-  9: { targetPlaza: 9, activo: false },
-  10: { targetPlaza: 10, activo: false },
+  2: { targetPlaza: 1, activo: true },
+  3: { targetPlaza: 2, activo: false },
+  4: { targetPlaza: 3, activo: false },
+  5: { targetPlaza: 4, activo: false },
+  6: { targetPlaza: 5, activo: false },
+  7: { targetPlaza: 6, activo: false },
+  8: { targetPlaza: 7, activo: false },
+  9: { targetPlaza: 8, activo: false },
+  10: { targetPlaza: 9, activo: false },
+  11: { targetPlaza: 10, activo: false },
 };
