@@ -4,22 +4,20 @@ import autos from '../assets/cars';
 
 const TOTAL_PLAZAS = 10;
 
-// Generamos 10 plazas vacías por defecto para asegurar que la UI siempre tenga datos
+// 10 plazas vacías por defecto
 const createInitialPlazas = () =>
   Array.from({ length: TOTAL_PLAZAS }, (_, i) => ({
     id: i + 1,
-    estado: false, // libre por defecto
+    estado: false,
     auto: null,
   }));
 
 export default function usePlazas() {
-  // Iniciamos con las 10 plazas generadas
   const [plazas, setPlazas] = useState(createInitialPlazas());
   const [timings, setTimings] = useState({});
   const [now, setNow] = useState(Date.now());
   const [isConnected, setIsConnected] = useState(socket.connected);
 
-  // Helper para obtener auto random (lo sacamos fuera del efecto para usarlo en init si fuera necesario)
   const getRandomCar = () => autos[Math.floor(Math.random() * autos.length)];
 
   useEffect(() => {
@@ -36,32 +34,41 @@ export default function usePlazas() {
     }
 
     function onEstadoInicial(dataBackend) {
-      console.log('[Socket] Estado Inicial recibido (parcial o total):', dataBackend);
+      console.log('[Socket] Estado Inicial:', dataBackend);
 
+      // 1. Actualizar visualización de Plazas
       setPlazas(prevPlazas => {
-        // Recorremos las 10 plazas actuales y actualizamos SOLO si viene info del backend
         return prevPlazas.map(p => {
           const datoBackend = dataBackend.find(d => d.plaza === p.id);
-
           if (datoBackend) {
             const estaOcupado = !datoBackend.libre;
             return {
               ...p,
               estado: estaOcupado,
-              // Si ya tenía auto lo mantenemos, si no, asignamos uno nuevo
               auto: estaOcupado ? p.auto || getRandomCar() : null,
             };
           }
-
-          // Si el backend no mandó info de esta plaza (ej: plaza 6-10), la dejamos como está
           return p;
         });
       });
+
+      // 2. Actualizar CRONÓMETROS (Timings) usando el timestamp del servidor
+      const nuevosTimings = {};
+      dataBackend.forEach(d => {
+        if (!d.libre) {
+          // Si está ocupado, usamos SU timestamp original
+          nuevosTimings[d.plaza] = {
+            start: d.timestamp,
+            lastSeconds: null,
+          };
+        }
+      });
+      setTimings(nuevosTimings);
     }
 
     function onEventoPlaza(data) {
-      console.log('[Socket] Cambio en plaza:', data);
-      const { plaza, libre } = data;
+      // data trae: { plaza, libre, timestamp }
+      const { plaza, libre, timestamp } = data;
       const nuevoEstado = !libre;
 
       setPlazas(prev =>
@@ -74,11 +81,11 @@ export default function usePlazas() {
         })
       );
 
-      // Actualizar timers
+      // Actualizar timers usando el timestamp del evento
       if (nuevoEstado) {
         setTimings(prev => ({
           ...prev,
-          [plaza]: { start: Date.now(), lastSeconds: null },
+          [plaza]: { start: timestamp, lastSeconds: null },
         }));
       } else {
         setTimings(prev => {
@@ -109,7 +116,7 @@ export default function usePlazas() {
     return () => clearInterval(interval);
   }, []);
 
-  // Calcular estadísticas
+  // Estadísticas
   const { libres, ocupados } = useMemo(() => {
     const libresCount = plazas.filter(p => !p.estado).length;
     return {
